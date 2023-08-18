@@ -16,13 +16,13 @@ RUN sed -i -e 's/deb.debian.org/archive.debian.org/g' \
            -e '/stretch-updates/d' /etc/apt/sources.list
 
 RUN apt-get update && \
-    apt-get install -y unzip curl nano iputils-ping gnupg2 apt-transport-https libpng-dev zlib1g-dev libmagickwand-dev && \
+    apt-get install -y apt-transport-https gnupg2 libpng-dev libzip-dev unzip && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pecl install imagick
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr
-RUN docker-php-ext-install pdo_mysql mysqli gd mbstring zip calendar exif gettext
-RUN docker-php-ext-enable imagick
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/install-php-extensions
+RUN chmod uga+x /usr/bin/install-php-extensions && \
+    sync && \
+    install-php-extensions bcmath exif gd imagick intl opcache pcntl pdo_sqlsrv redis sqlsrv zip pdo_mysql mysqli
 
 WORKDIR /var/www/html
 RUN chown www-data:www-data /var/www/html
