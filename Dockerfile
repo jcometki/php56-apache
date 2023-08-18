@@ -22,7 +22,7 @@ RUN apt-get update && \
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/install-php-extensions
 RUN chmod uga+x /usr/bin/install-php-extensions && \
     sync && \
-    install-php-extensions bcmath exif gd imagick intl opcache pcntl pdo_sqlsrv redis sqlsrv zip pdo_mysql mysqli
+    install-php-extensions bcmath exif gd imagick intl pcntl zip pdo_mysql mysqli
 
 WORKDIR /var/www/html
 RUN chown www-data:www-data /var/www/html
