@@ -26,5 +26,6 @@ RUN chmod uga+x /usr/bin/install-php-extensions && \
 
 WORKDIR /var/www/html
 RUN chown www-data:www-data /var/www/html
+USER www-data
 
 EXPOSE 80
