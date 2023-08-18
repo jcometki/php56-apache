@@ -11,6 +11,10 @@ RUN echo 'date.timezone = America/Campo_Grande' > /usr/local/etc/php/conf.d/tzon
 RUN echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_WARNING' > /usr/local/etc/php/conf.d/php-errors.ini
 RUN sed -i 's/%h/%h %{X-Forwarded-For}i/g' /etc/apache2/apache2.conf
 
+RUN sed -i -e 's/deb.debian.org/archive.debian.org/g' \
+           -e 's|security.debian.org|archive.debian.org/|g' \
+           -e '/stretch-updates/d' /etc/apt/sources.list
+
 RUN apt-get update && \
     apt-get install -y unzip curl nano iputils-ping gnupg2 apt-transport-https libpng-dev zlib1g-dev libmagickwand-dev && \
     rm -rf /var/lib/apt/lists/*
