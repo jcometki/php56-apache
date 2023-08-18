@@ -22,6 +22,5 @@ RUN docker-php-ext-enable imagick
 
 WORKDIR /var/www/html
 RUN chown www-data:www-data /var/www/html
-COPY --chown=www-data:www-data app_src .
 
 EXPOSE 80
